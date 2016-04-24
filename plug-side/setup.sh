@@ -13,5 +13,7 @@ cp /etc/config/network /etc/config/network.ap
 cp /etc/config/wireless /etc/config/wireless.ap
 cp -f network.sta /etc/config/network.sta
 cp -f wireless.sta /etc/config/wireless.sta
+#set up evil twin access point
+cp -f rc.local /etc/rc.local
 reboot
 
