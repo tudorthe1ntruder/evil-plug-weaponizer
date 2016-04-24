@@ -1,0 +1,15 @@
+# Put your custom commands here that should be executed once
+# the system init finished. By default this file does nothing.
+sleep 5
+/sbin/kkeps_on &
+/sbin/kkeps_off &
+/sbin/kkeps_seekwifi &
+/sbin/kkeps_reconect &
+
+iw dev wlan0 scan | grep SSID | grep -v -e '[[ ]]*$' | cut -d ":" -f 2 | uniq | sed 's/^[ \t]*//;s/[ \t]*$//' | head -1 > /root/ssid.txt
+sed -i "s/option ssid.*$/option ssid '`cat /root/ssid.txt`'-/g" /etc/config/wireless
+sed -i "s/#Please.*#/#Please login and like our Facebook page to have free internet access to our '`cat /root/ssid.txt`' network#/g" /www/login.html
+
+/etc/init.d/network reload
+
+exit 0
